@@ -264,6 +264,22 @@ epd       = epd_init()
 has_gnss  = probe_gnss()
 has_rtc   = probe_rtc()
 has_baro  = probe_baro()
+
+print()
+print('LilyGO T-Echo Power-on Self Test')
+print()
+
+print('Built-in components:')
+print('RADIO   :', 'PASS' if has_radio else 'FAIL')
+print('GNSS    :', 'PASS' if has_gnss  else 'FAIL')
+print('RTC     :', 'PASS' if has_rtc   else 'FAIL')
+print('FLASH   :', 'PASS' if has_flash else 'FAIL')
+print('BARO    :', 'PASS' if has_baro  else 'FAIL')
+
+print()
+print('Power-on Self Test is completed.')
+print()
+
 display_status(epd)
 bl.value = True
 rgb_test()
