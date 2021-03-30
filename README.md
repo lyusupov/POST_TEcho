@@ -4,6 +4,7 @@ Power-on Self Test for LilyGO&#174; **T-Echo** (Nordic nRF52840 based) LoRaWAN G
 
 * [Illustrations](https://github.com/lyusupov/POST_TEcho/blob/main/README.md#illustrations)
 * [Disclaimer](https://github.com/lyusupov/POST_TEcho/blob/main/README.md#disclaimer)
+* [CircuitPython](https://github.com/lyusupov/POST_TEcho/blob/main/README.md#circuitpython)
 * [Installation](https://github.com/lyusupov/POST_TEcho/blob/main/README.md#installation)
 * [Credits](https://github.com/lyusupov/POST_TEcho/blob/main/README.md#credits)
 
@@ -28,6 +29,24 @@ Power-on Self Test for LilyGO&#174; **T-Echo** (Nordic nRF52840 based) LoRaWAN G
 # Disclaimer
 
 This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+# CircuitPython
+
+This power-on self test is running on top of [CircuitPython 6](https://github.com/adafruit/circuitpython) software from Adafruit Industies.
+
+<br>
+
+![](https://s3.amazonaws.com/adafruit-circuit-python/CircuitPython_Repo_header_logo.png)
+
+<br>
+
+These 'frozen' modules are integrated into the custom CircuitPython build in order to better match the LilyGO&#174; **T-Echo** board hardware specs:
+
+* [Adafruit_CircuitPython_EPD](https://github.com/adafruit/Adafruit_CircuitPython_EPD)
+* [Adafruit_CircuitPython_GPS](https://github.com/adafruit/Adafruit_CircuitPython_GPS)
+* [Adafruit_CircuitPython_BME280](https://github.com/adafruit/Adafruit_CircuitPython_BME280)
+* [Adafruit_CircuitPython_framebuf](https://github.com/adafruit/Adafruit_CircuitPython_framebuf)
+* [Adafruit_CircuitPython_datetime](https://github.com/adafruit/Adafruit_CircuitPython_datetime)
 
 # Installation
 
