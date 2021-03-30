@@ -9,9 +9,19 @@ Power-on Self Test for LilyGO&#174; **T-Echo** (Nordic nRF52840 based) LoRaWAN G
 
 # Illustrations
 
+## e-Paper display output
+
 <br>
 
 <img src="https://github.com/lyusupov/POST_TEcho/blob/main/docs/images/POST_T-Echo_1.jpg" height="313" width="400">
+
+<br>
+
+## REPL console output
+
+<br>
+
+![](https://github.com/lyusupov/POST_TEcho/blob/main/docs/images/POST_T-Echo_4.jpg)
 
 <br>
 
@@ -24,7 +34,7 @@ This software is distributed in the hope that it will be useful, but WITHOUT ANY
 The **T-Echo** typically comes with factory pre-installed [Adafruit_nRF52_Bootloader](https://github.com/adafruit/Adafruit_nRF52_Bootloader).<br>
 The Bootloader is capable to self-program an application firmware into the device. In order to simplify the firmware transfer, the bootloader emulates a "USB Mass Storage" interface.
 
-1. Download an appropriate variant of the CircuitPython firmware binary from [this location](https://github.com/lyusupov/POST_TEcho/tree/main/bin) ;
+1. Download integrated _(CircuitPython6 and scripts)_ **POST** firmware binary from [this location](https://github.com/lyusupov/POST_TEcho/tree/main/bin) ;
 
 2. Connect the LilyGO&#174; **T-Echo** to your PC by means of a USB cable (Type-A <-> Type-C) ;
 
@@ -37,15 +47,6 @@ The Bootloader is capable to self-program an application firmware into the devic
 ![](https://github.com/lyusupov/POST_TEcho/blob/main/docs/images/POST_T-Echo_3.jpg)
 
 <br>
-
-5. Copy files from _**src**_ folder into the "USB Mass Storage" as follows: 
-
-<br>
-
-![](https://github.com/lyusupov/POST_TEcho/blob/main/docs/images/POST_T-Echo_2.jpg)
-
-<br>
-
 
 # Credits
 
