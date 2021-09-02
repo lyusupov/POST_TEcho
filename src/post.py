@@ -28,9 +28,14 @@ import sys
 
 SOC_GPIO_PIN_IO_PWR   = board.P0_12
 
-SOC_GPIO_LED_GREEN    = board.P0_15
-SOC_GPIO_LED_RED      = board.P0_13
+#SOC_GPIO_LED_GREEN    = board.P0_15
+#SOC_GPIO_LED_RED      = board.P0_13
+#SOC_GPIO_LED_BLUE     = board.P0_14
+
+SOC_GPIO_LED_GREEN    = board.P1_01
+SOC_GPIO_LED_RED      = board.P1_03
 SOC_GPIO_LED_BLUE     = board.P0_14
+
 
 SOC_GPIO_PIN_SS       = board.P0_24
 SOC_GPIO_PIN_RST      = board.P0_25
@@ -61,6 +66,10 @@ SOC_GPIO_PIN_SFL_SS   = board.P1_15
 SOC_GPIO_PIN_SFL_HOLD = board.P0_05
 SOC_GPIO_PIN_SFL_WP   = board.P0_07
 
+SOC_GPIO_PIN_R_INT    = board.P0_16
+
+BME280_ADDRESS        = const(0x77)
+
 has_radio  = False
 has_gnss   = False
 has_epaper = True
@@ -80,8 +89,12 @@ CMD_JEDEC_ID          = const(0x9F)
 
 # MX25R1635F SPI flash
 MACRONIX_ID           = const(0xC2)
-MEMORY_TYPE           = const(0x28)
+MACRONIX_MEMTYPE      = const(0x28)
 CAPACITY              = const(0x15)
+
+# ZD25WQ16B SPI flash
+ZETTA_ID              = const(0xBA)
+ZETTA_MEMTYPE         = const(0x60)
 
 def probe_flash():
   hold = digitalio.DigitalInOut(SOC_GPIO_PIN_SFL_HOLD)
@@ -102,7 +115,7 @@ def probe_flash():
   spi.unlock()
   spi.deinit()
 
-  return True if in_[0] == MACRONIX_ID and in_[1] == MEMORY_TYPE and in_[2] == CAPACITY else False
+  return True if (in_[0] == MACRONIX_ID or in_[0] == ZETTA_ID) and (in_[1] == MACRONIX_MEMTYPE or in_[1] == ZETTA_MEMTYPE) and in_[2] == CAPACITY else False
 
 def rgb_test():
   led_r = digitalio.DigitalInOut(SOC_GPIO_LED_RED)
@@ -174,28 +187,50 @@ def probe_gnss():
 
 def probe_rtc():
   import pcf8563
+  from pcf8563 import PCF8563_SLAVE_ADDRESS
   i2c = busio.I2C(SOC_GPIO_PIN_SCL, SOC_GPIO_PIN_SDA)
-  rtc = pcf8563.PCF8563(i2c)
 
-  time_marker = time.monotonic()
-  prev_seconds = rtc.seconds()
   rval = False
-  while time.monotonic() - time_marker < 3.0:
-    if rtc.seconds() != prev_seconds:
-      rval = True
-      break
+
+  while not i2c.try_lock():
+    pass
+
+  has_pcf8563 = PCF8563_SLAVE_ADDRESS in i2c.scan()
+
+  i2c.unlock()
+
+  #if has_pcf8563:
+  #  rtc = pcf8563.PCF8563(i2c)
+
+  #  time_marker = time.monotonic()
+  #  prev_seconds = rtc.seconds()
+  #  while time.monotonic() - time_marker < 3.0:
+  #    if rtc.seconds() != prev_seconds:
+  #      rval = True
+  #      break
   i2c.deinit()
-  return rval
+  #return rval
+  return has_pcf8563
 
 def probe_baro():
   import adafruit_bme280
   i2c = busio.I2C(SOC_GPIO_PIN_SCL, SOC_GPIO_PIN_SDA)
-  bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 
   rval = False
 
-  if bme280.pressure > 0:
-    rval = True
+  while not i2c.try_lock():
+    pass
+
+  has_bme280 = BME280_ADDRESS in i2c.scan()
+
+  i2c.unlock()
+
+  if has_bme280:
+    bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
+
+    if bme280.pressure > 0:
+      rval = True
+
   i2c.deinit()
   return rval
 
@@ -252,6 +287,9 @@ def display_status(display):
                 Adafruit_EPD.BLACK, size=3)
   display.display()
 
+
+rtc_int = digitalio.DigitalInOut(SOC_GPIO_PIN_R_INT)
+rtc_int.direction = digitalio.Direction.INPUT
 io_power(True)
 bl = digitalio.DigitalInOut(SOC_GPIO_PIN_EPD_BLGT)
 bl.direction = digitalio.Direction.OUTPUT

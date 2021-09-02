@@ -74,7 +74,7 @@ The Bootloader is capable to self-program an application firmware into the devic
 
 Name|Subject
 ---|---
-[LilyGO company](http://www.lilygo.cn/)|**TTGO T-Echo**
+[LilyGO company](http://www.lilygo.cn/)|[**TTGO T-Echo**](https://s.click.aliexpress.com/e/_9wz3pJ)
 [Adafruit Industries](http://adafruit.com/)|[CircuitPython](https://github.com/adafruit/circuitpython) , [e-Paper](https://github.com/adafruit/Adafruit_CircuitPython_EPD) and [BME280](https://github.com/adafruit/Adafruit_CircuitPython_BME280) libraries 
 [Lewis He](https://github.com/lewisxhe)|[MicroPython PCF8563 library](https://github.com/lewisxhe/PCF8563_PythonLibrary)
 [Ehong-tl](https://github.com/ehong-tl)|[Port of SX1262 driver](https://github.com/ehong-tl/micropySX126X) from [RadioLib](https://github.com/jgromes/RadioLib) library for MicroPython
